@@ -1,3 +1,2 @@
-# proyectoprueba
-
-a [Sails](http://sailsjs.org) application
+# PracticasAngularJS
+Creado para ejercitarme todo los días en Angular JS
