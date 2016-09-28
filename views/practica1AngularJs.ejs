@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  </head>
+  <body>
+    <p>
+      Aqui estoy utilizando la directiva ng-options
+    </p>
+    <div ng-controller="coleccion" class="">
+      <select class="" ng-model="articuloDeportivoOptions" ng-options="x for x in articulos">
+      </select> Articulos Deportivos
+      <select ng-model="articuloDeportivoRepeat" class="" name="">
+        <option ng-repeat="x in articulos">{{x}}</option>
+      </select>
+    </div>
+    <div class="">
+      <p>
+        Este es el articulo seleccionado por Options {{articuloDeportivoOptions}}
+      </p>
+      <p>
+        Este es el articulo seleccionado por Repeat {{articuloDeportivoRepeat}}
+      </p>
+    </div>
+
+    <script type="text/javascript">
+      var app = angular.module('app',[]);
+      app.controller('coleccion',['$scope', function (scope) {
+          scope.articulos = ["Bicicleta","Patineta","Monopatin"];
+      }]);
+    </script>
+  </body>
+</html>
