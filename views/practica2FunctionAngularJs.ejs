@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="app1">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  </head>
+  <body ng-controller="coleccion">
+
+    <script type="text/javascript">
+      var app = angular.module('app1',[]);
+
+      // Diferentes tipos de variables
+
+      var numero = 15235;
+      var string = "Bienvenido al mundo de AngularJs";
+      var miFuncion = function(num) {
+        return num*num;
+      };
+      var objeto = {
+        id: 1,
+        nombre: 'pelota',
+        precio: 120
+      };
+      var noDefinido = undefined;
+      var valor = null;
+      var array = ["cero","uno","dos","tres"];
+      var fecha = new Date();
+      var noExiste = '';
+      var Json = angular.toJson(objeto, 2);
+
+      // Formas de verificar los tipos de variable con AngularJs
+
+      console.log('¿ Es un Array ?');
+      console.log(angular.isArray(array));
+      console.log('¿ Es un Objeto ?');
+      console.log(angular.isObject(objeto));
+      console.log('¿ Es una fecha?');
+      console.log(angular.isDate(fecha));
+      console.log('¿ Es un numero ?');
+      console.log(angular.isNumber(numero));
+      console.log('¿ Es una funcion ?');
+      console.log(angular.isFunction(miFuncion));
+      console.log('¿ Es un string ?');
+      console.log(angular.isString(string));
+      console.log('¿ Es un Definido ?');
+      console.log(angular.isDefined(noExiste));
+      console.log('¿ Es un undefined?');
+      console.log(angular.isUndefined(valor));
+      console.log('Convertido un Objeto a Json');
+      console.log(Json);
+      console.log('Convertido un Json a Objeto');
+      console.log(angular.fromJson(Json));
+
+
+
+      app.controller('coleccion',['$scope', function (scope) {
+
+
+          scope.articulosArray = ["Bicicleta","Patineta","Monopatin"];
+          scope.persons = {
+            ArrayObjeto:[
+            {id: 1, nombre: "Samil",      apellido: "Sanchez"},
+            {id: 2, nombre: "Elizabeth",  apellido: "Pinto"},
+            {id: 3, nombre: "Norelis",    apellido: "Sanchez"}
+            ],
+            selectedOption: {id: 1, name: "Norelis", apellido: "Sanchez"}
+          };
+          scope.cintas = {
+            objeto: {
+              cinta001 : { id: 1 , color: 'white', metros: 100, gastado: 20 },
+              cinta002 : { id: 2 , color: 'red', metros: 500, gastado: 200 },
+              cinta003 : { id: 3 , color: 'blue', metros: 600, gastado: 260 },
+              cinta004 : { id: 4 , color: 'black', metros: 10, gastado: 2 },
+              cinta005 : { id: 5 , color: 'purple', metros: 809, gastado: 9 },
+              cinta006 : { id: 6 , color: 'brown', metros: 100, gastado: 0 }
+            },
+            selected: {id: 2 , color: 'red', metros: 500, gastado: 200 }
+          };
+          scope.articuloDeportivoOptions = ["Bicicleta"];
+      }]);
+    </script>
+  </body>
+</html>

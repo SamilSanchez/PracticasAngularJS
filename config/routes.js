@@ -37,6 +37,9 @@ module.exports.routes = {
   },
   '/practicaUnoAngular' :{
     view: 'practica1AngularJs'
+  },
+  '/practicaDosAngular' :{
+    view: 'practica2FunctionAngularJs'
   }
 
   /***************************************************************************
