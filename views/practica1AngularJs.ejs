@@ -5,15 +5,22 @@
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   </head>
-  <body>
+  <body ng-controller="coleccion">
     <p>
-      Aqui estoy utilizando la directiva ng-options
+      Aqui estoy utilizando la directiva ng-options con array simple
     </p>
-    <div ng-controller="coleccion" class="">
-      <select class="" ng-model="articuloDeportivoOptions" ng-options="x for x in articulos">
-      </select> Articulos Deportivos
+    <div class="">
+      <span>Articulos Deportivos:</span>
+      <select class="" ng-model="articuloDeportivoOptions" ng-options="x for x in articulosArray track by x[0]">
+      </select>
+    </div>
+    <p>
+      Aqui estoy utilizando la directiva ng-repeat con array simple
+    </p>
+    <div class="">
+      <span>Articulos Deportivos:</span>
       <select ng-model="articuloDeportivoRepeat" class="" name="">
-        <option ng-repeat="x in articulos">{{x}}</option>
+        <option ng-repeat="x in articulosArray">{{x}}</option>
       </select>
     </div>
     <div class="">
@@ -24,11 +31,74 @@
         Este es el articulo seleccionado por Repeat {{articuloDeportivoRepeat}}
       </p>
     </div>
+    <hr>
+
+    <p>
+      Aqui estoy utilizando la directiva ng-options con array de objetos
+    </p>
+    <div class="">
+      <span>Articulos Deportivos:</span>
+      <select class="" ng-model="persons.selectedOption" ng-options="y.nombre for y in persons.ArrayObjeto track by y.id">
+      </select>
+    </div>
+    <p>
+      Aqui estoy utilizando la directiva ng-repeat con array de objetos
+    </p>
+    <div class="">
+      <span>Articulos Deportivos:</span>
+      <select ng-model="selectUser2">
+        <option ng-repeat="z in persons.ArrayObjeto" ng-selected="" value="{{z}}">{{z.nombre}}</option>
+      </select>
+    </div>
+    <div class="">
+      <p>
+        Este es el usuario seleccionado por Options: {{persons.selectedOption}}
+      </p>
+      <p>
+        Este es el usuario seleccionado por Repeat {{selectUser2}}
+      </p>
+    </div>
+    <hr>
+
+    <p>
+      Aqui estoy utilizando la directiva ng-options con un objeto
+    </p>
+    <div class="">
+      <span>Articulos Deportivos:</span>
+      <select class="" ng-model="cintas.selected" ng-options="x for (x,y) in cintas.objeto track by y.id">
+      </select>
+    </div>
+
+    <div class="">
+      <p>
+        Este es el usuario seleccionado por Options: {{cintas.selected}}
+      </p>
+    </div>
 
     <script type="text/javascript">
       var app = angular.module('app',[]);
       app.controller('coleccion',['$scope', function (scope) {
-          scope.articulos = ["Bicicleta","Patineta","Monopatin"];
+          scope.articulosArray = ["Bicicleta","Patineta","Monopatin"];
+          scope.persons = {
+            ArrayObjeto:[
+            {id: 1, nombre: "Samil",      apellido: "Sanchez"},
+            {id: 2, nombre: "Elizabeth",  apellido: "Pinto"},
+            {id: 3, nombre: "Norelis",    apellido: "Sanchez"}
+            ],
+            selectedOption: {id: 1, name: "Norelis", apellido: "Sanchez"}
+          };
+          scope.cintas = {
+            objeto: {
+              cinta001 : { id: 1 , color: 'white', metros: 100, gastado: 20 },
+              cinta002 : { id: 2 , color: 'red', metros: 500, gastado: 200 },
+              cinta003 : { id: 3 , color: 'blue', metros: 600, gastado: 260 },
+              cinta004 : { id: 4 , color: 'black', metros: 10, gastado: 2 },
+              cinta005 : { id: 5 , color: 'purple', metros: 809, gastado: 9 },
+              cinta006 : { id: 6 , color: 'brown', metros: 100, gastado: 0 }
+            },
+            selected: {id: 2 , color: 'red', metros: 500, gastado: 200 }
+          };
+        $scope.articuloDeportivoOptions = ["Bicicleta"];
       }]);
     </script>
   </body>
