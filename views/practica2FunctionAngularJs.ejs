@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> -->
+    <script src="bower_components/angular/angular.js"></script>
   </head>
   <body ng-controller="coleccion">
 
@@ -17,6 +18,38 @@
         El Campo introducido es de tipo: {{result}}
       </p>
     </div>
+
+    <div class="">
+      <p>
+        Para Agregar una nueva pelicula, este es el formato:
+        {"id": 1, "nombre": "Jumanchi", "editor":"Samil Sanchez", "copias": 20}
+      </p>
+      <input type="text" ng-model="nuevaPelicula" placeholder="Coloca tu json">
+      <p>
+        Peliculas:
+      </p>
+      <select class="" ng-model="pelicula" ng-options="x.nombre for x in peliculas" name="">
+      </select>
+      <input type="button" ng-click="agregarUna(nuevaPelicula)" name="name" value="Añadir">
+      <input type="button" ng-click="guardarUna(peliculaSeleccionada)" value="Guardar Una">
+      <input type="button" ng-click="guardarTodas()" value="Guardar Todas">
+      <input type="button" ng-click="borrarUna(pelicula)" value="Borrar Seleccionada">
+      <input type="button" ng-click="recuperarTodas()" value="Recuperar">
+    </div>
+
+    <div class="">
+      <p>
+        Pelicula selecionada: {{pelicula}}
+      </p>
+      <p>
+        Estas son todas las peliculas actuales: {{peliculas}}
+      </p>
+      <p>
+        Estas son las peliculas respaldadas: {{peliculasRespaldadas}}
+      </p>
+    </div>
+
+
 
 
     <script type="text/javascript">
@@ -55,7 +88,6 @@
       ];
 
       // Formas de verificar los tipos de variable con AngularJs
-
       console.log('¿ Es un Array ?');
       console.log(angular.isArray(array));
       console.log('¿ Es un Objeto ?');
@@ -77,10 +109,9 @@
       console.log('Convertido un Json a Objeto');
       console.log(angular.fromJson(Json));
 
-
-
       app.controller('coleccion',['$scope', function (scope) {
 
+          // Utilizando la Funcion angular.bind
           var typeData = angular.bind(this, function (valor) {
 
             if (angular.isDefined(valor)) {
@@ -118,6 +149,85 @@
               scope.result = typeData(dato);
           }
 
+          // funcion angular.copy
+          var seleccionarIdPeliculas = angular.bind(this, function (peliculas) {
+            var nuevoArray = [];
+            // con forEach
+            angular.forEach(peliculas, function (value, key) {
+              nuevoArray.push(peliculas[key].id)
+            });
+            // con native for
+            /*for (var i = 0; i < peliculas.length; i++) {
+              nuevoArray.push(peliculas[i].id)
+            }*/
+            return nuevoArray;
+          });
+          scope.peliculas = [
+            {id: 142, nombre: "Jumanchi", editor:"Samil Sanchez", copias: 20},
+            {id: 2343, nombre: "Jumanchi 2", editor:'Elizabeth Gutierrez', copias: 10},
+            {id: 233, nombre: "Jumanchi 3", editor:'Jose Mendez', copias: 5},
+          ];
+          scope.peliculasIdActual = seleccionarIdPeliculas(scope.peliculas);
+          scope.peliculasIdRespaldadas = seleccionarIdPeliculas(scope.peliculasRespaldadas);
+          scope.peliculasRespaldadas = [];
+          scope.peliculaSeleccionada = [];
+          scope.agregarUna = function (pelicula) {
+            let objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
+            if (angular.isObject(objeto)) { // ¿ Se convirtio a objeto ?
+              let id = objeto.id;
+              // Devuelve el index de un array si encuentra el valor sino
+              // no lo encuentra retorna -1
+              let index = scope.peliculasIdActual.indexOf(id);
+              if (index == -1) {
+                scope.peliculas.push(objeto); // Agregro una nueva pelicula
+                let posicionNueva = (scope.peliculas.length) - 1 ;
+                // Agrego el nuevo id de pelicula
+                scope.peliculasIdActual.push(scope.peliculas[posicionNueva].id);
+              }else {
+                alert("Ya existe el id de la pelicula.")
+              }
+            }else {
+                alert("Formato Invalido !Por favor Verificar!")
+            }
+          }
+          scope.guardarUna = function (pelicula) {
+            console.log(pelicula);
+            let objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
+            if (angular.isObject(objeto)) { // ¿ Se convirtio a objeto ?
+              let id = objeto.id;
+              // Devuelve el index de un array si encuentra el valor sino
+              // no lo encuentra retorna -1
+              var index = scope.peliculasIdRespaldadas.indexOf(id);
+              if (index == -1) {
+                scope.peliculasRespaldadas.push(objeto); // Agregro una nueva pelicula
+                var posicionNueva = (scope.peliculasRespaldadas.length) - 1 ;
+                // Agrego el nuevo id de pelicula
+                scope.peliculasIdRespaldadas.push(scope.peliculasRespaldadas[posicionNueva].id);
+              }else {
+                alert("Ya se encuentra respaldada la pelicula.")
+              }
+            }else {
+                alert("Formato Invalido !Por favor Verificar!")
+            }
+          };
+          scope.guardarTodas = function () {
+            angular.copy(scope.peliculas, scope.peliculasRespaldadas);
+          }
+          scope.borrarUna = function (pelicula) {
+            var id = pelicula.id;
+            angular.forEach(scope.peliculas, function (value, key) {
+              if (value.id == id) {
+                // splice(index,elementos a borrar, elementos a agregar)
+                scope.peliculasRespaldadas.splice(key,1);
+                scope.peliculasIdRespaldadas.splice(key,1);
+              };
+            });
+          }
+          scope.recuperarTodas = function () {
+            angular.copy(scope.peliculasRespaldadas, scope.peliculas);
+          }
+          //angular.copy(scope.peliculas[id])
+
           // funcion forEach con un objeto
           console.log("Utilizado el forEach de angular con un objeto");
           console.log(angular.toJson(cintas, 4));
@@ -135,30 +245,6 @@
             console.log("The obj:", obj);
           });
 
-
-
-
-          scope.articulosArray = ["Bicicleta","Patineta","Monopatin"];
-          scope.persons = {
-            ArrayObjeto:[
-            {id: 1, nombre: "Samil",      apellido: "Sanchez"},
-            {id: 2, nombre: "Elizabeth",  apellido: "Pinto"},
-            {id: 3, nombre: "Norelis",    apellido: "Sanchez"}
-            ],
-            selectedOption: {id: 1, name: "Norelis", apellido: "Sanchez"}
-          };
-          scope.cintas = {
-            objeto: {
-              cinta001 : { id: 1 , color: 'white', metros: 100, gastado: 20 },
-              cinta002 : { id: 2 , color: 'red', metros: 500, gastado: 200 },
-              cinta003 : { id: 3 , color: 'blue', metros: 600, gastado: 260 },
-              cinta004 : { id: 4 , color: 'black', metros: 10, gastado: 2 },
-              cinta005 : { id: 5 , color: 'purple', metros: 809, gastado: 9 },
-              cinta006 : { id: 6 , color: 'brown', metros: 100, gastado: 0 }
-            },
-            selected: {id: 2 , color: 'red', metros: 500, gastado: 200 }
-          };
-          scope.articuloDeportivoOptions = ["Bicicleta"];
       }]);
     </script>
   </body>
