@@ -35,11 +35,14 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  '/practicaUnoAngular' :{
+  '/practicaUnoAngular': {
     view: 'practica1AngularJs'
   },
-  '/practicaDosAngular' :{
+  '/practicaDosAngular': {
     view: 'practica2FunctionAngularJs'
+  },
+  '/practicaTresAngular': {
+    view: 'Selecc'
   }
 
   /***************************************************************************

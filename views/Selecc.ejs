@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app="Selecc">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Seleccionador</title>
+	<script src="js/controller.js"></script>
+</head>
+
+<body ng-controller ="FirstController">
+	<div>
+		<select ng-model="miDato" ng-change="borrar(miDato)" ng-options ="dato.descripcion for dato in datos"></select><br>
+		<select ng-model="miDato" ng-change="borrar(miDato)" ng-options ="dato.descripcion for dato in datos"></select><br>
+	</div>
+</body>
+</html>
