@@ -7,6 +7,18 @@
   </head>
   <body ng-controller="coleccion">
 
+    <p>
+      Introduce un Valor y te dira que tipo es:
+    </p>
+    <input type="text" ng-change="tipoDeDato(dato)" ng-model="dato" placeholder="Ejemplo: 7">
+
+    <div ng-if="result" class="">
+      <p>
+        El Campo introducido es de tipo: {{result}}
+      </p>
+    </div>
+
+
     <script type="text/javascript">
       var app = angular.module('app1',[]);
 
@@ -28,6 +40,19 @@
       var fecha = new Date();
       var noExiste = '';
       var Json = angular.toJson(objeto, 2);
+      var cintas = {
+        cinta001 : { id: 1 , color: 'white', metros: 100, gastado: 20 },
+        cinta002 : { id: 2 , color: 'red', metros: 500, gastado: 200 },
+        cinta003 : { id: 3 , color: 'blue', metros: 600, gastado: 260 },
+        cinta004 : { id: 4 , color: 'black', metros: 10, gastado: 2 },
+        cinta005 : { id: 5 , color: 'purple', metros: 809, gastado: 9 },
+        cinta006 : { id: 6 , color: 'brown', metros: 100, gastado: 0 }
+      }
+      var personas= [
+        {id: 1, nombre: "Samil",      apellido: "Sanchez", id_car: {id:33498, marca: 'Ford'}},
+        {id: 2, nombre: "Elizabeth",  apellido: "Pinto", id_car: {id:45454, marca: 'chevrolet'}},
+        {id: 3, nombre: "Norelis",    apellido: "Sanchez", id_car: {id: 43434, marca: 'fiat'}}
+      ];
 
       // Formas de verificar los tipos de variable con AngularJs
 
@@ -55,6 +80,62 @@
 
 
       app.controller('coleccion',['$scope', function (scope) {
+
+          var typeData = angular.bind(this, function (valor) {
+
+            if (angular.isDefined(valor)) {
+              if (angular.isArray(valor)) {
+                return "Es un Array";
+              }
+              if (angular.isObject(valor)) {
+                return "Es un Objeto";
+              }
+              if (angular.isDate(valor)) {
+                return "Es una Fecha";
+              }
+              if (angular.isString(valor)) {
+                if (isNaN(valor)) {
+                  return "Es un String";
+                }else {
+                  return "Es un Numero";
+                }
+              }
+              if (angular.isFunction(valor)) {
+                return "Es un Funcion";
+              }
+              if (angular.isArray(valor)) {
+                return "Es un Array";
+              }
+              if (angular.isUndefined(valor)) {
+                return "Es un Objeto";
+              }
+            }else {
+              return "No esta Definido";
+            }
+          });
+          scope.result = false;
+          scope.tipoDeDato =  function(dato) {
+              scope.result = typeData(dato);
+          }
+
+          // funcion forEach con un objeto
+          console.log("Utilizado el forEach de angular con un objeto");
+          console.log(angular.toJson(cintas, 4));
+          angular.forEach(cintas, function(value, key, obj) {
+            console.log("The value:", value);
+            console.log("The key:", key);
+            console.log("The obj:", obj);
+          });
+
+          // funcion forEach con un array
+          console.log("Utilizado el forEach de angular con un array");
+          angular.forEach(personas, function(value, key, obj) {
+            console.log("The value:", value);
+            console.log("The key:", key);
+            console.log("The obj:", obj);
+          });
+
+
 
 
           scope.articulosArray = ["Bicicleta","Patineta","Monopatin"];
