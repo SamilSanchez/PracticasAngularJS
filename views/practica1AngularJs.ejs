@@ -38,7 +38,7 @@
     </p>
     <div class="">
       <span>Articulos Deportivos:</span>
-      <select class="" ng-model="persons.selectedOption" ng-options="y.nombre for y in persons.ArrayObjeto track by y.id">
+      <select class="" ng-model="selectedOption" ng-options="y.nombre for y in persons.ArrayObjeto track by y.nombre">
       </select>
     </div>
     <p>
@@ -84,9 +84,10 @@
             {id: 1, nombre: "Samil",      apellido: "Sanchez"},
             {id: 2, nombre: "Elizabeth",  apellido: "Pinto"},
             {id: 3, nombre: "Norelis",    apellido: "Sanchez"}
-            ],
-            selectedOption: {id: 1, name: "Norelis", apellido: "Sanchez"}
+            ]//,
+            //selectedOption: {id: 1, name: "Norelis", apellido: "Sanchez"}
           };
+          scope.selectedOption = {id: 1, nombre: "Norelis", apellido: "Sanchez"}
           scope.cintas = {
             objeto: {
               cinta001 : { id: 1 , color: 'white', metros: 100, gastado: 20 },
