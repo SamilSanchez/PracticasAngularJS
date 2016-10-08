@@ -5,11 +5,8 @@
 *****************************************************************************/
 
 module.exports = {
-  var MP = require("mercadopago");
-  var mp = new MP ("649853968332418", "sht1NJ3JS9QprKruNMBTY8unVp9i9nUQ");
-
   credenciales: {
-    CLIENT_ID: 649853968332418
+    CLIENT_ID: 649853968332418,
     CLIENT_SECRET: "sht1NJ3JS9QprKruNMBTY8unVp9i9nUQ"
   },
 
@@ -18,17 +15,20 @@ module.exports = {
     mp.getAccessToken(function (err, accessToken){
       if (err) {
           console.log (err);
-          return ()
+          //return ();
       } else {
           console.log (accessToken);
           accessToken;
-      }
+      };
     });
   },
 
 // Crear Nuevo cliente
   nuevoCliente : function () {
-    let datos = {
+
+    var MP = require("mercadopago");
+    var mp = new MP ("649853968332418", "sht1NJ3JS9QprKruNMBTY8unVp9i9nUQ");
+    var datos = {
       "uri": "/v1/customers",
       "data": {
           "email": "email@test.com"
