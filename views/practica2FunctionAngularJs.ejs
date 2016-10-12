@@ -28,18 +28,18 @@
       <p>
         Peliculas:
       </p>
-      <select class="" ng-model="pelicula" ng-options="x.nombre for x in peliculas" name="">
+      <select class="" ng-model="peliculaSeleccionada" ng-options="x.nombre for x in peliculas" name="">
       </select>
       <input type="button" ng-click="agregarUna(nuevaPelicula)" name="name" value="Añadir">
       <input type="button" ng-click="guardarUna(peliculaSeleccionada)" value="Guardar Una">
       <input type="button" ng-click="guardarTodas()" value="Guardar Todas">
-      <input type="button" ng-click="borrarUna(pelicula)" value="Borrar Seleccionada">
+      <input type="button" ng-click="borrarUna(peliculaSeleccionada)" value="Borrar Seleccionada">
       <input type="button" ng-click="recuperarTodas()" value="Recuperar">
     </div>
 
     <div class="">
       <p>
-        Pelicula selecionada: {{pelicula}}
+        Pelicula selecionada: {{peliculaSeleccionada}}
       </p>
       <p>
         Estas son todas las peliculas actuales: {{peliculas}}
@@ -192,14 +192,14 @@
           }
           scope.guardarUna = function (pelicula) {
             console.log(pelicula);
-            let objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
-            if (angular.isObject(objeto)) { // ¿ Se convirtio a objeto ?
-              let id = objeto.id;
+            //let objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
+            if (angular.isObject(pelicula)) { // ¿ Es un objeto ?
+              let id = pelicula.id;
               // Devuelve el index de un array si encuentra el valor sino
               // no lo encuentra retorna -1
               var index = scope.peliculasIdRespaldadas.indexOf(id);
               if (index == -1) {
-                scope.peliculasRespaldadas.push(objeto); // Agregro una nueva pelicula
+                scope.peliculasRespaldadas.push(pelicula); // Agrego una nueva pelicula
                 var posicionNueva = (scope.peliculasRespaldadas.length) - 1 ;
                 // Agrego el nuevo id de pelicula
                 scope.peliculasIdRespaldadas.push(scope.peliculasRespaldadas[posicionNueva].id);
@@ -227,7 +227,6 @@
             angular.copy(scope.peliculasRespaldadas, scope.peliculas);
           }
           //angular.copy(scope.peliculas[id])
-
           // funcion forEach con un objeto
           console.log("Utilizado el forEach de angular con un objeto");
           console.log(angular.toJson(cintas, 4));
@@ -236,7 +235,6 @@
             console.log("The key:", key);
             console.log("The obj:", obj);
           });
-
           // funcion forEach con un array
           console.log("Utilizado el forEach de angular con un array");
           angular.forEach(personas, function(value, key, obj) {
@@ -244,7 +242,6 @@
             console.log("The key:", key);
             console.log("The obj:", obj);
           });
-
       }]);
     </script>
   </body>
