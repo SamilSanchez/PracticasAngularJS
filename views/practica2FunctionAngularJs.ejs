@@ -83,7 +83,7 @@
       }
       var personas= [
         {id: 1, nombre: "Samil",      apellido: "Sanchez", id_car: {id:33498, marca: 'Ford'}},
-        {id: 2, nombre: "Elizabeth",  apellido: "Pinto", id_car: {id:45454, marca: 'chevrolet'}},
+        {id: 2, nombre: "Elizabeth",  apellido: "Pinto", id_car: {id:45454, marca: 'chevrovar'}},
         {id: 3, nombre: "Norelis",    apellido: "Sanchez", id_car: {id: 43434, marca: 'fiat'}}
       ];
 
@@ -172,15 +172,15 @@
           scope.peliculasRespaldadas = [];
           scope.peliculaSeleccionada = [];
           scope.agregarUna = function (pelicula) {
-            let objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
+            var objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
             if (angular.isObject(objeto)) { // ¿ Se convirtio a objeto ?
-              let id = objeto.id;
+              var id = objeto.id;
               // Devuelve el index de un array si encuentra el valor sino
               // no lo encuentra retorna -1
-              let index = scope.peliculasIdActual.indexOf(id);
+              var index = scope.peliculasIdActual.indexOf(id);
               if (index == -1) {
                 scope.peliculas.push(objeto); // Agregro una nueva pelicula
-                let posicionNueva = (scope.peliculas.length) - 1 ;
+                var posicionNueva = (scope.peliculas.length) - 1 ;
                 // Agrego el nuevo id de pelicula
                 scope.peliculasIdActual.push(scope.peliculas[posicionNueva].id);
               }else {
@@ -192,14 +192,15 @@
           }
           scope.guardarUna = function (pelicula) {
             console.log(pelicula);
-            //let objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
+            //var objeto = JSON.parse(pelicula); // Conversion de Json a Objeto.
             if (angular.isObject(pelicula)) { // ¿ Es un objeto ?
-              let id = pelicula.id;
+              var id = pelicula.id;
               // Devuelve el index de un array si encuentra el valor sino
               // no lo encuentra retorna -1
               var index = scope.peliculasIdRespaldadas.indexOf(id);
               if (index == -1) {
                 scope.peliculasRespaldadas.push(pelicula); // Agrego una nueva pelicula
+
                 var posicionNueva = (scope.peliculasRespaldadas.length) - 1 ;
                 // Agrego el nuevo id de pelicula
                 scope.peliculasIdRespaldadas.push(scope.peliculasRespaldadas[posicionNueva].id);
