@@ -49,6 +49,18 @@
       </p>
     </div>
 
+    <div class="">
+      <p>
+
+        Son iguales estos arrays:
+        var array1 = ["uno","dos","tres","cuatro"];
+        var array2 = ["uno","dos","tres","cuatro"];
+      </p>
+      <p>
+        La respuesta es: {{equals}}
+      </p>
+    </div>
+
 
 
 
@@ -88,6 +100,7 @@
       ];
 
       // Formas de verificar los tipos de variable con AngularJs
+      /*
       console.log('¿ Es un Array ?');
       console.log(angular.isArray(array));
       console.log('¿ Es un Objeto ?');
@@ -108,8 +121,22 @@
       console.log(Json);
       console.log('Convertido un Json a Objeto');
       console.log(angular.fromJson(Json));
+      */
 
       app.controller('coleccion',['$scope', function (scope) {
+
+          // Funcion angular.equals
+          // compara si dos objetos, string, Json, number, array son iguales.
+          var array1 = ["uno","dos","tres","cuatro"];
+          var array2 = ["uno","dos","tres","cuatro"];
+          scope.equals = angular.equals(array1, array2);
+
+          // Funcion angular.extend
+          // Extiende un objeto agregandole nuevos clave par-valor
+          var contenido = {kill: 'my name is Samil'}
+          var newobject = angular.extend(contenido, objeto, cintas);
+          console.log('newobject');
+          console.log(newobject);
 
           // Utilizando la Funcion angular.bind
           var typeData = angular.bind(this, function (valor) {
@@ -128,7 +155,7 @@
                 if (isNaN(valor)) {
                   return "Es un String";
                 }else {
-                  return "Es un Numero";
+                  return "Es un número";
                 }
               }
               if (angular.isFunction(valor)) {
@@ -150,6 +177,7 @@
           }
 
           // funcion angular.copy
+          // copia objetos, string, Json, number, array de una variable a otra.
           var seleccionarIdPeliculas = angular.bind(this, function (peliculas) {
             var nuevoArray = [];
             // con forEach
