@@ -227,7 +227,8 @@
               // no lo encuentra retorna -1
               var index = scope.peliculasIdRespaldadas.indexOf(id);
               if (index == -1) {
-                scope.peliculasRespaldadas.push(pelicula); // Agregro una nueva pelicula
+                scope.peliculasRespaldadas.push(pelicula); // Agrego una nueva pelicula
+
                 var posicionNueva = (scope.peliculasRespaldadas.length) - 1 ;
                 // Agrego el nuevo id de pelicula
                 scope.peliculasIdRespaldadas.push(scope.peliculasRespaldadas[posicionNueva].id);
@@ -255,7 +256,6 @@
             angular.copy(scope.peliculasRespaldadas, scope.peliculas);
           }
           //angular.copy(scope.peliculas[id])
-
           // funcion forEach con un objeto
           console.log("Utilizado el forEach de angular con un objeto");
           console.log(angular.toJson(cintas, 4));
@@ -264,7 +264,6 @@
             console.log("The key:", key);
             console.log("The obj:", obj);
           });
-
           // funcion forEach con un array
           console.log("Utilizado el forEach de angular con un array");
           angular.forEach(personas, function(value, key, obj) {
@@ -272,7 +271,6 @@
             console.log("The key:", key);
             console.log("The obj:", obj);
           });
-
       }]);
     </script>
   </body>
