@@ -43,6 +43,9 @@ module.exports.routes = {
   },
   '/practicaTresAngular': {
     view: 'Selecc'
+  },
+  '/practicaUnoObjetos': {
+    view: 'practicaUnoObjetos'
   }
 
   /***************************************************************************
